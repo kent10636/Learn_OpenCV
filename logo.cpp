@@ -11,7 +11,7 @@ int main() {
 
 	// 在感兴趣区域插入图片
 	Mat image = imread("puppy.bmp");
-	Mat logo = imread("smalllogo.png");
+	Mat logo = imread("smalllogo.png");  // logo的背景色为黑色
 
 	// 在图像的右下角定义一个ROI（Region Of Interest）
 	Mat imageROI(image,
@@ -24,7 +24,7 @@ int main() {
 	waitKey(0);
 
 	
-	// 利用掩码，在感兴趣区域插入图片时只复制不为黑色（即像素值不为0）的部分
+	// 利用掩码，在感兴趣区域插入logo时只复制不为黑色（即像素值不为0）的部分
 	image = imread("puppy.bmp");  // 重新读取原图像	
 
 	// 在图像的右下角定义一个ROI
