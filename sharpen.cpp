@@ -33,6 +33,21 @@ void sharpen(const cv::Mat &image, cv::Mat &result) {
 	result.col(result.cols - 1).setTo(cv::Scalar(0));
 }
 
+void sharpen2D(const cv::Mat &image, cv::Mat &result) {  // 锐化滤波器
+
+	// 构造内核（所有入口都初始化为0）
+	cv::Mat kernel(3, 3, CV_32F, cv::Scalar(0));
+	// 对内核赋值
+	kernel.at<float>(1, 1) = 5.0;
+	kernel.at<float>(0, 1) = -1.0;
+	kernel.at<float>(2, 1) = -1.0;
+	kernel.at<float>(1, 0) = -1.0;
+	kernel.at<float>(1, 2) = -1.0;
+
+	// 对图像滤波
+	cv::filter2D(image, result, image.depth(), kernel);
+}
+
 int main() {
 	Mat image = imread("boldt.jpg");
 	if (!image.data)return 0;
@@ -42,6 +57,7 @@ int main() {
 	double time = static_cast<double>(getTickCount());
 
 	sharpen(image, result);
+	//sharpen2D(image, result);
 
 	time = (static_cast<double>(getTickCount()) - time) / getTickFrequency();
 	cout << "time= " << time << endl;
